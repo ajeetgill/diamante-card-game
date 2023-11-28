@@ -33,5 +33,6 @@ public abstract class Card {
     /**
      * This method is to be implemented by subclasses to define the card's behavior.
      */
+    public Card(){}
     public abstract void play();
 }
