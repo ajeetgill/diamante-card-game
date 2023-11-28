@@ -47,4 +47,5 @@ public class HazardCard extends Card {
                 "hazardType='" + hazardType + '\'' +
                 '}';
     }
+    public void play();
 }
