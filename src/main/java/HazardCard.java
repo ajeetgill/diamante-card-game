@@ -5,6 +5,8 @@ import java.util.Objects;
  * It extends the Card class, inheriting its properties and adding a hazardType property.
  */
 public class HazardCard extends Card {
+
+    // The type of hazard this card represents.
     private final String hazardType;
 
     /**
@@ -13,6 +15,7 @@ public class HazardCard extends Card {
      * @param hazardType The type of hazard this card represents.
      */
     public HazardCard(String hazardType) {
+
         this.hazardType = hazardType;
     }
 

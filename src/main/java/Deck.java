@@ -25,7 +25,6 @@ public class Deck {
         // Shuffle the deck
         Collections.shuffle(cards);
     }
-//    ERFKEBKRE
     /**
      * This method is used to draw a card from the deck.
      * @return Card drawn from the deck.
