@@ -12,6 +12,7 @@ public abstract class Strategy {
      * Constructor for the Strategy class.
      */
     public Strategy() {
+
         this.random = new Random();
     }
 
@@ -20,5 +21,13 @@ public abstract class Strategy {
      * @return a boolean value indicating whether to continue exploring or not.
      */
     public abstract boolean decide();
-
+    public AgressiveStrategy(){
+        super();
+    }
+    public boolean decide(){
+        return true;
+    }
+    public ConservativeStrategy(){
+        super();
+    }
 }
