@@ -11,11 +11,6 @@ public abstract class Card {
     // The value of the card
     protected CardType type;
 
-    /**
-     * Constructor for the Card class, with default type 
-     * @param value The value of the card.
-     */
-    
     public Card(CardType type) {
         this.type = type;
     }

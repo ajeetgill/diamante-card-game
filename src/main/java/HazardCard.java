@@ -6,6 +6,10 @@ import java.util.Objects;
  */
 public class HazardCard extends Card {
 
+    public HazardCard( HAZARD_TYPES hazardType) {
+        super();
+    }
+
     // ENUM of hazards in the game
     public enum HAZARD_TYPES {
         SNAKE,
