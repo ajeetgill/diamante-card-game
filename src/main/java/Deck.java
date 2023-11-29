@@ -1,6 +1,7 @@
 import java.util.Collections;
 import java.util.Stack;
 
+
 /**
  * This class represents the deck of cards used in the Diamant board game.
  * It uses the Stack data structure from Java Collections Framework to simulate a deck of cards.
@@ -16,12 +17,14 @@ public class Deck {
         cards = new Stack<>();
         // Add treasure cards to the deck
         for (int i = 0; i < 15; i++) {
-            cards.push(new TreasureCard());
+            cards.push(new TreasureCard(TreasureCard.TREASURE_TYPE.RUBY));
         }
         // Add hazard cards to the deck
         for (int i = 0; i < 5; i++) {
-            cards.push(new HazardCard());
-        }
+            cards.push(new HazardCard(HazardCard.HAZARD_TYPES.SNAKE));
+            cards.push(new HazardCard(HazardCard.HAZARD_TYPES.SPIDER));
+            cards.push(new HazardCard(HazardCard.HAZARD_TYPES.ROCKSLIDE));
+       }
         // Shuffle the deck
         Collections.shuffle(cards);
     }
@@ -40,4 +43,12 @@ public class Deck {
     public boolean isEmpty() {
         return cards.isEmpty();
     }
+
+
+    public String toString() {
+        return "Deck{" +
+                "cards=" + cards +
+                '}';
+    }
+    
 }

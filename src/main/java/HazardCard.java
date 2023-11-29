@@ -6,16 +6,22 @@ import java.util.Objects;
  */
 public class HazardCard extends Card {
 
-    // The type of hazard this card represents.
-    private final String hazardType;
+    // ENUM of hazards in the game
+    public enum HAZARD_TYPES {
+        SNAKE,
+        SPIDER,
+        ROCKSLIDE
+    }
+
+    private HAZARD_TYPES hazardType;
 
     /**
      * Constructor for the HazardCard class.
      *
      * @param hazardType The type of hazard this card represents.
      */
-    public HazardCard(String hazardType) {
-
+    public HazardCard(HAZARD_TYPES hazardType) {
+        super(CardType.HAZARD);
         this.hazardType = hazardType;
     }
 
@@ -25,7 +31,7 @@ public class HazardCard extends Card {
      * @return The hazard type.
      */
     public String getHazardType() {
-        return hazardType;
+        return this.hazardType.toString();
     }
 
     @Override
@@ -37,17 +43,23 @@ public class HazardCard extends Card {
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(hazardType);
+    public String toString() {
+        // prints an appropriate matching emoji for each hazard type
+        switch (this.hazardType) {
+            case SNAKE:
+                return "[\uD83D\uDC0D]";
+            case SPIDER:
+                return "[\uD83D\uDC1B]";
+            case ROCKSLIDE:
+                return "[\uD83D\uDEA8]";
+            default:
+                return "❌";
+        }
+
     }
 
-    @Override
-    public String toString() {
-        return "HazardCard{" +
-                "hazardType='" + hazardType + '\'' +
-                '}';
+    public CardType getCardType() {
+        return CardType.HAZARD;
     }
-    public void play() {
-        System.out.println("🐍🐍🐍 Hazard Card Played");
-    }
+    
 }
