@@ -5,6 +5,8 @@
 - if you are not familiar with what that code is exactly supposed to do - you spend way too much debugging it when the bug
 - It's hard to get specific generalised code
   - e.g. write me code to handle both GET and POST request in python, it gives a hardcoded way to extract just GET or just POST, but not an abstracted away method
+- Well, I realised, I can't use co-pilot for everything, as then I won't know the overall structure of program, and that makes it hard to have the co-pilot do things for me.
+- Copilot isn't good at incremental changes - as in if I ask it to write function for something and ask it to change a certain section of the generate code snippet - that is build on top of existing code, it tends to regenerate the code from scratch
 -
 
 ## Good to have:
@@ -27,6 +29,4 @@
 - trying LIVE-SHARE of VS-Code
 - Checking symbolic link to see if both are same
 - I think the good thing about humans over AI will be - yes AI learns very fast, but humans can build on top of things. As in, a lot of mundane things - AI can do that, maybe even better than us. But then once AI is done, then we can acknowledge what has been done so far and then take it a step ahead. Coz humans need it for humans, unless AI uses data tracking from Meta and things and start controlling our behaviour based on the shadow profile just very little at a time changing your mentality.
-- 
-
-
+-
