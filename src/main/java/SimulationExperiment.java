@@ -5,20 +5,23 @@ public class SimulationExperiment {
 
     public static void main(String[] args) {
         // Create a list of players
-        List<Player> players = new ArrayList<>();
-        players.add(new Player("Player1", new AggressiveStrategy()));
-        players.add(new Player("Player2", new ConservativeStrategy()));
+        ArrayList<Player> players = new ArrayList<>();
+        Player player1 = new Player("Player1", "new AggressiveStrategy()");
+        Player player2 = new Player("Player2", "new ConservativeStrategy()");
+        players.add(player1);
+        players.add(player2);
+        System.out.println("players: " + players);
 
         // Create a new game with the players
-        Game game = new Game(players);
+         Game game = new Game(players);
 
         // Create a new game simulation with the game
-        GameSimulation gameSimulation = new GameSimulation(game);
+        // GameSimulation gameSimulation = new GameSimulation(game);
 
         // Run the simulation
-        gameSimulation.run();
+        // gameSimulation.run();
 
         // Print the results
-        gameSimulation.printResults();
+        // gameSimulation.printResults();
     }
 }

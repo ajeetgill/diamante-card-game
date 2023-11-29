@@ -17,6 +17,11 @@ public class TreasureCard extends Card {
         this.value = rand.nextInt(15) + 1;
     }
 
+    @Override
+    public void play() {
+        System.out.println("💎💎💎 Treasure Card Played");
+    }
+
     /**
      * This method returns the value of the treasure card.
      * @return int This returns the value of the treasure card.
