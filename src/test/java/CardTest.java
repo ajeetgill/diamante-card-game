@@ -7,7 +7,27 @@ class CardTest {
 
     @BeforeEach
     void setUp() {
-        card = new Card();
+        card = new Card() {
+            @Override
+            public String getName() {
+                return null;
+            }
+
+            @Override
+            public int getHazardLevel() {
+                return 0;
+            }
+
+            @Override
+            public CardType getCardType() {
+                return null;
+            }
+
+            @Override
+            public String toString() {
+                return null;
+            }
+        };
     }
 
     @Test

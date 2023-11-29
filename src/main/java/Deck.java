@@ -50,5 +50,11 @@ public class Deck {
                 "cards=" + cards +
                 '}';
     }
-    
+
+    public void initializeDeck() {
+    }
+
+    public int size() {
+        return 0;
+    }
 }

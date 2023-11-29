@@ -6,6 +6,9 @@ import java.util.Objects;
  */
 public class HazardCard extends Card {
 
+    public HazardCard(String snake, int i) {
+    }
+
     // ENUM of hazards in the game
     public enum HAZARD_TYPES {
         SNAKE,
@@ -58,8 +61,18 @@ public class HazardCard extends Card {
 
     }
 
+    @Override
+    public String getName() {
+        return null;
+    }
+
+    @Override
+    public int getHazardLevel() {
+        return 0;
+    }
+
     public CardType getCardType() {
         return CardType.HAZARD;
     }
-    
+
 }

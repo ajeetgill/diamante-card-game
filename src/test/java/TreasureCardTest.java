@@ -9,7 +9,22 @@ public class TreasureCardTest {
 
     @BeforeEach
     public void setUp() {
-        treasureCard = new TreasureCard(5);
+        treasureCard = new TreasureCard(5) {
+            @Override
+            public int getTreasureValue() {
+                return 0;
+            }
+
+            @Override
+            public String getName() {
+                return null;
+            }
+
+            @Override
+            public int getHazardLevel() {
+                return 0;
+            }
+        };
     }
 
     /**
