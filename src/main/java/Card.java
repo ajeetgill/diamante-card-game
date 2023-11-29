@@ -10,8 +10,10 @@ public abstract class Card {
     }
     // The value of the card
     protected CardType type;
+    protected int value;
 
     public Card(CardType type) {
+        this.value =0;
         this.type = type;
     }
 
@@ -22,4 +24,11 @@ public abstract class Card {
     public abstract CardType getCardType();
     public abstract String toString();
 
+    public int getValue() {
+        return value;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
+    }
 }
