@@ -6,6 +6,11 @@ import java.util.Random;
  */
 public class TreasureCard extends Card {
 
+    public TreasureCard(int i) {
+    }
+
+    public int getTreasureValue();
+
     // two kind of treasure cards: RUBY and DIAMOND
     public enum TREASURE_TYPE {
         RUBY,

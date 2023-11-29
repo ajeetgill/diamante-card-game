@@ -3,6 +3,13 @@
  * This class represents a card in the game.
  */
 public abstract class Card {
+    public Card() {
+    }
+
+    public abstract String getName();
+
+    public abstract int getHazardLevel();
+
     // two kind of cards: treasure and hazard
     public enum CardType {
         TREASURE,
