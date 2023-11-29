@@ -21,6 +21,17 @@
 - makes learning so much faster
 - don't have to waste time googling the syntax
 - it focuses on - ask good questions, and in order to ask better questions you need to articulate yourself better and keep increasing your knowledge of that domain.
+- It's a good - work along side partner for now - its now good at doing the whole thing for you
+- Sometimes it generates code which I wouldn't had thought about - so I get exposed to different and sometimes newer ways (more advanced). E.g.
+  ```java
+  public boolean equals(Object o) {
+          if (this == o) return true;
+          if (!(o instanceof HazardCard)) return false;
+          HazardCard that = (HazardCard) o;
+          return Objects.equals(hazardType, that.hazardType);
+      }
+  ```
+-
 
 ## Wondering??
 

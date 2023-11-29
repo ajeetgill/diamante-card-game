@@ -3,37 +3,28 @@
  * This class represents a card in the game.
  */
 public abstract class Card {
+    // two kind of cards: treasure and hazard
+    public enum CardType {
+        TREASURE,
+        HAZARD
+    }
     // The value of the card
-    protected int value;
+    protected CardType type;
 
     /**
-     * Constructor for the Card class.
+     * Constructor for the Card class, with default type 
      * @param value The value of the card.
      */
-    public Card(int value) {
-        this.value = value;
+    
+    public Card(CardType type) {
+        this.type = type;
     }
 
     /**
      * This method returns the value of the card.
      * @return The value of the card.
      */
-    public int getValue() {
-        return value;
-    }
-
-    /**
-     * This method sets the value of the card.
-     * @param value The value to set.
-     */
-    public void setValue(int value) {
-        this.value = value;
-    }
-
-    /**
-     * This method is to be implemented by subclasses to define the card's behavior.
-     */
-    public Card(){}
-    public abstract void play();
+    public abstract CardType getCardType();
+    public abstract String toString();
 
 }

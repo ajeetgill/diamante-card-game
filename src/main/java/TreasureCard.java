@@ -6,35 +6,58 @@ import java.util.Random;
  */
 public class TreasureCard extends Card {
 
-    private int value;
+    // two kind of treasure cards: RUBY and DIAMOND
+    public enum TREASURE_TYPE {
+        RUBY,
+        DIAMOND
+    }
+
+    public static final int RUBY_IN_DIAMOND = 5;
+    
+    private int numGems;
+    private TREASURE_TYPE gemType;
 
     /**
      * Constructor for the TreasureCard class.
      * It randomly assigns a value to the treasure card.
      */
-    public TreasureCard() {
+    public TreasureCard(TREASURE_TYPE gemType) {
+        super(CardType.TREASURE);
+        this.gemType = gemType;
         Random rand = new Random();
-        this.value = rand.nextInt(15) + 1;
-    }
-
-    @Override
-    public void play() {
-        System.out.println("💎💎💎 Treasure Card Played");
+        this.numGems = rand.nextInt(15) + 1;
     }
 
     /**
      * This method returns the value of the treasure card.
      * @return int This returns the value of the treasure card.
      */
-    public int getValue() {
-        return this.value;
+    public int getTotalValue() {
+        if(this.gemType == TREASURE_TYPE.DIAMOND)
+            return this.numGems * RUBY_IN_DIAMOND;
+        else
+            return this.numGems;
     }
 
+    // get the gemtype
+    public TREASURE_TYPE getGemType() {
+        return this.gemType;
+    }
+    
     /**
-     * This method sets the value of the treasure card.
-     * @param value This is the new value of the treasure card.
+     * This method returns the string representation of the treasure card.
+     * @return String This returns the string representation of the treasure card.
      */
-    public void setValue(int value) {
-        this.value = value;
+    @Override
+    public String toString() {
+        if (this.gemType == TREASURE_TYPE.DIAMOND)
+            return "[💎" + this.numGems + ']';
+        else
+            return "[🏮" + this.numGems + ']';
+    }
+
+    @Override
+    public CardType getCardType() {
+        return Card.CardType.TREASURE;
     }
 }
