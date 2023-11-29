@@ -8,6 +8,8 @@ public class SimulationExperiment {
 //        ArrayList<Player> players = new ArrayList<>();
 //        Player player1 = new Player("Player1", "new AggressiveStrategy()");
 //        Player player2 = new Player("Player2", "new ConservativeStrategy()");
+//        Player player3 = new Player("Player3", "new ReactionaryStrategy()");
+//        Player player4 = new Player("Player4", "new CautiousStrategy()");
 //        players.add(player1);
 //        players.add(player2);
 //        System.out.println("players: " + players);
