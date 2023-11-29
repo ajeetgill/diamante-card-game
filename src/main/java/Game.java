@@ -5,8 +5,8 @@ import java.util.ArrayList;
  */
 public class Game {
 
-    private ArrayList<Player> players;
-    private Deck deck;
+    final private ArrayList<Player> players;
+    final private Deck deck;
     private int round;
 
     /**

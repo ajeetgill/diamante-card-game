@@ -1,9 +1,12 @@
 public class Player {
     private String name;
     private int score;
-    private Strategy strategy;
+    private String strategy;
+    // private Strategy strategy;
+    // @todo : correct the type of Strategy
 
-    public Player(String name, Strategy strategy) {
+    // public Player(String name, Strategy strategy) {
+    public Player(String name, String strategy) {
         this.name = name;
         this.score = 0;
         this.strategy = strategy;
@@ -15,7 +18,8 @@ public class Player {
     public int getScore() {
         return score;
     }
-    public Strategy getStrategy() {
+    // public Strategy getStrategy() {
+    public String getStrategy() {
         return strategy;
     }
     public void setName(String name) {
@@ -24,7 +28,8 @@ public class Player {
     public void setScore(int score) {
         this.score = score;
     }
-    public void setStrategy(Strategy strategy) {
+    // public void setStrategy(Strategy strategy) {
+    public void setStrategy(String strategy) {
         this.strategy = strategy;
     }
 }

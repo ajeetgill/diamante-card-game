@@ -47,5 +47,7 @@ public class HazardCard extends Card {
                 "hazardType='" + hazardType + '\'' +
                 '}';
     }
-    public void play();
+    public void play() {
+        System.out.println("🐍🐍🐍 Hazard Card Played");
+    }
 }
