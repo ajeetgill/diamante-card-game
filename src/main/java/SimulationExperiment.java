@@ -1,23 +1,22 @@
 import java.util.ArrayList;
-import java.util.List;
 
 public class SimulationExperiment {
 
     public static void main(String[] args) {
         // Create a list of players
-//        ArrayList<Player> players = new ArrayList<>();
-//        Player player1 = new Player("Player1", "new AggressiveStrategy()");
-//        Player player2 = new Player("Player2", "new ConservativeStrategy()");
-//        Player player3 = new Player("Player3", "new ReactionaryStrategy()");
-//        Player player4 = new Player("Player4", "new CautiousStrategy()");
-//        players.add(player1);
-//        players.add(player2);
-//        System.out.println("players: " + players);
-        Deck d1 = new Deck();
-        System.out.println(d1.toString());
+        ArrayList<Player> players = new ArrayList<>();
+        Player player1 = new Player("Player1", "new AggressiveStrategy()");
+        Player player2 = new Player("Player2", "new ConservativeStrategy()");
+        Player player3 = new Player("Player3", "new ReactionaryStrategy()");
+        players.add(player1);
+        players.add(player2);
+        players.add(player3);
 
         // Create a new game with the players
-//         Game game = new Game(players);
+        Game game = new Game(players);
+        System.out.println("Starting game...");
+        game.start();
+        System.out.println("Game over!");
 
         // Create a new game simulation with the game
         // GameSimulation gameSimulation = new GameSimulation(game);
