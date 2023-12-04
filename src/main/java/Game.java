@@ -12,6 +12,11 @@ public class Game {
     private int cave;
 
     private Card currentCard;
+
+    /**
+     * cardDrawn is the card that is drawn from the deck
+     * redundant variable, but makes it easier to understand the code, and it's much easier keep track of the original card drawn(currentCard), as the currentCard is modified in the code as per  the rubies distributed to the players.
+     */
     private Card cardDrawn;
     final public static int TOTAL_CAVES = 5;
 
@@ -241,16 +246,18 @@ public class Game {
 
     public String toString() {
         StringBuilder result = new StringBuilder("================1=====================\n");
+        if (deck != null) {
+            result.append("Deck for clarity\n");
+            result.append(deck.toString());
+            result.append("\n\n");
+        }
         result.append("GAME STATUS\n");
         result.append("Cave: #").append(cave).append("\n");
-//        result.append("Active players in Cave: \n");
-//        for (Player player : activePlayers) {
-//            result.append(player.toString()).append("\n");
-//        }
-        if (deck != null) {
-            result.append(deck.toString());
-            result.append("\n");
+        result.append("Active players in Cave: \n");
+        for (Player player : activePlayers) {
+            result.append(player.toString()).append("\n");
         }
+
 
         if (cardDrawn != null) {
             result.append("Drawn Card: ").append(cardDrawn.toString());
@@ -268,8 +275,6 @@ public class Game {
         result.append("=================2====================\n");
         return result.toString();
     }
-
-
 }
 /*
   Components in the game:
