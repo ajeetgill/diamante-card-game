@@ -63,8 +63,8 @@ public class Game {
             if (currentCard instanceof TreasureCard tCard) {
                 cardDrawn = new TreasureCard(TreasureCard.TREASURE_TYPE.RUBY);
                 ((TreasureCard) cardDrawn).setRubies(tCard.getRubies());
-            } else {
-                cardDrawn = new HazardCard(HazardCard.HAZARD_TYPES.SNAKE);
+            } else if(currentCard instanceof HazardCard hCard){
+                cardDrawn = new HazardCard(hCard.getHazardType());
             }
             //  System.out.println("Drawn card: " + currentCard.toString());
             isCaveClosed = isCaveFinished(currentCard);
@@ -245,7 +245,7 @@ public class Game {
             result.append("\n");
         }
         if (currentCard != null) {
-            result.append("Current Card: ").append(currentCard.toString());
+            result.append("Current Card Value: ").append(currentCard.toString());
             result.append("\n");
         }
         if (currentPath != null) {
