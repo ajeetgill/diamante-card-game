@@ -29,7 +29,7 @@ public class Game {
      * This method starts the game and controls the game flow.
      */
     public void start() {
-        final int TOTAL_CAVES = 1;
+        final int TOTAL_CAVES = 5;
         while (cave < TOTAL_CAVES) {
             this.activePlayers = new ArrayList<Player>(players);
             this.currentPath = new ArrayList<>();
@@ -213,7 +213,11 @@ public class Game {
     public String getStatusOfPlayers() {
         Player winner = determineWinner();
         StringBuilder result = new StringBuilder("===============RESULT================\n");
-        result.append("🏆Winner : ").append(winner);
+        if (winner != null) {
+            result.append("Winner: ").append(winner.toString()).append("\n");
+        } else {
+            result.append("😭No winner, all players had an EMPTY chest\n");
+        }
         result.append("\n");
         result.append("All Players: \n");
         for (Player p : players) {

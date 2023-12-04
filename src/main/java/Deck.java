@@ -8,8 +8,10 @@ import java.util.Stack;
  */
 public class Deck {
     private Stack<Card> cards;
-    final private int TOTAL_TREASURE_CARDS = 2;
-    final private int TOTAL_HAZARD_CARDS = 5;
+    final private int TOTAL_TREASURE_CARDS = 20;
+
+    //    each iteration adds 2 snakes, 2 spiders, 2 rockslides, to maintain even number of hazard cards and maintain , so there's always a chance of a hazard-card-pair being drawn
+    final private int TOTAL_HAZARD_CARD_ITERATION = 1;
 
     /**
      * Constructor for the Deck class.
@@ -22,16 +24,14 @@ public class Deck {
             cards.push(new TreasureCard(TreasureCard.TREASURE_TYPE.RUBY));
         }
         // Add hazard cards to the deck
-        for (int i = 0; i < TOTAL_HAZARD_CARDS; i++) {
+        for (int i = 0; i < TOTAL_HAZARD_CARD_ITERATION; i++) {
+//            each iteration adds 2 snakes, 2 spiders, 2 rockslides, to maintain even number of hazard cards and maintain , so there's always a chance of a hazard-card-pair being drawn
             cards.push(new HazardCard(HazardCard.HAZARD_TYPES.SNAKE));
-            // pick a random hazard card
-//            int random = (int) (Math.random() * 3);
-//            if (random == 0)
-//                cards.push(new HazardCard(HazardCard.HAZARD_TYPES.SNAKE));
-//            else if (random == 1)
-//                cards.push(new HazardCard(HazardCard.HAZARD_TYPES.SPIDER));
-//            else
-//                cards.push(new HazardCard(HazardCard.HAZARD_TYPES.ROCKSLIDE));
+            cards.push(new HazardCard(HazardCard.HAZARD_TYPES.SNAKE));
+            cards.push(new HazardCard(HazardCard.HAZARD_TYPES.SPIDER));
+            cards.push(new HazardCard(HazardCard.HAZARD_TYPES.SPIDER));
+            cards.push(new HazardCard(HazardCard.HAZARD_TYPES.ROCKSLIDE));
+            cards.push(new HazardCard(HazardCard.HAZARD_TYPES.ROCKSLIDE));
         }
         // Shuffle the deck
         Collections.shuffle(cards);
@@ -57,9 +57,8 @@ public class Deck {
 
 
     public String toString() {
-        return "{" +
-                "cards=" + cards +
-                '}';
+        return
+                "CARDS :" + cards;
     }
 
     public void initializeDeck() {

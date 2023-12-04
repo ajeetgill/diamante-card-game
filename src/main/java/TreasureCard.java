@@ -48,7 +48,7 @@ public class TreasureCard extends Card {
      */
     @Override
     public String toString() {
-        return "[🏮" + this.numRubies + ']';
+        return "" + this.numRubies;
     }
 
     @Override

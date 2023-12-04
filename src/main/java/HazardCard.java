@@ -38,9 +38,9 @@ public class HazardCard extends Card {
     public String toString() {
         // prints an appropriate matching emoji for each hazard type
         return switch (this.hazardType) {
-            case SNAKE -> "[\uD83D\uDC0D]";
-            case SPIDER -> "[\uD83D\uDC1B]";
-            case ROCKSLIDE -> "[\uD83D\uDEA8]";
+            case SNAKE -> "\uD83D\uDC0D";
+            case SPIDER -> "\uD83D\uDC1B";
+            case ROCKSLIDE -> "❌";
             default -> "❌";
         };
 
