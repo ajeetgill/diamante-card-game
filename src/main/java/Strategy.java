@@ -17,28 +17,37 @@ public abstract class Strategy {
      * @return a boolean value indicating whether to continue exploring or not.
      */
     abstract boolean decide();
+
+    public abstract String toString();
 }
 class AggressiveStrategy extends Strategy {
     @Override
     boolean decide() {
-
         return true; // Always continue exploring
+    }
+    public String toString(){
+        return "St:Aggressive";
     }
 }
 
 class ConservativeStrategy extends Strategy {
     @Override
     boolean decide() {
-
         return random.nextBoolean(); // Continue exploring randomly using the inherited random object
+    }
+    public String toString(){
+        return "St:Conservative";
     }
 }
 
-class ReactionaryStrategy extends Strategy {
+class LetLuckDecideStrategy extends Strategy {
     @Override
     boolean decide() {
         double randomNumber = random.nextDouble();
         return randomNumber <= 0.25; // 25% chance of continuing exploring
+    }
+    public String toString(){
+        return "St:Luck";
     }
 }
 
@@ -46,5 +55,8 @@ class CautiousStrategy extends Strategy {
     @Override
     boolean decide() {
         return false; // Never continue exploring
+    }
+    public String toString(){
+        return "St:Cautious";
     }
 }

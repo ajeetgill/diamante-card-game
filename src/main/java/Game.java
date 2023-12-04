@@ -31,6 +31,10 @@ public class Game {
     public void start() {
         final int TOTAL_CAVES = 1;
         while (cave < TOTAL_CAVES) {
+            this.activePlayers = new ArrayList<Player>(players);
+            this.currentPath = new ArrayList<>();
+            this.deck = new Deck();
+            System.out.println("Starting Deck: " + deck);
             enterCave();
             cave++;
         }
@@ -53,10 +57,6 @@ public class Game {
      * This method represents a cave in the game.
      */
     private void enterCave() {
-        this.activePlayers = new ArrayList<Player>(players);
-        this.currentPath = new ArrayList<>();
-        this.deck = new Deck();
-
         boolean isCaveClosed = false;
         do {
             currentCard = deck.drawCard();
@@ -87,10 +87,24 @@ public class Game {
      * This method kicks players who want to leave the game and removes them from the active players list.
      */
     private void kickPlayersWantingToLeave() {
+        if (currentPath.size() <= 2) return;
+        if (activePlayers.isEmpty()) return;
         ArrayList<Player> playersToRemove = new ArrayList<>();
         for (Player player : activePlayers) {
-            if (player.wantsToLeave()) {
+            if (player.strategy.decide()) {
                 playersToRemove.add(player);
+            }
+        }
+        if (!playersToRemove.isEmpty()) {
+            System.out.println("Players leaving: " + playersToRemove.toString());
+            for (Player p : playersToRemove) {
+                p.addToChest(p.caveRubies);
+                p.caveRubies = 0;
+            }
+            for (Card c : currentPath) {
+                if (c instanceof TreasureCard tCard) {
+                    distributeRubiesOnCaveExit(tCard, playersToRemove);
+                }
             }
         }
         activePlayers.removeAll(playersToRemove);
@@ -98,18 +112,27 @@ public class Game {
 
     /**
      * This method determines the winner of the game.
+     * In case of a tie, the player who entered the cave first wins.
      *
      * @return The player who won the game.
      */
     private Player determineWinner() {
-        // Logic for determining the winner
-        return null;
+        Player winner = null;
+        int max = 0;
+        for (Player p : players) {
+            if (p.getChestValue() > max) {
+                max = p.getChestValue();
+                winner = p;
+            }
+        }
+        return winner;
     }
 
     /**
-     * change the gemsInChest of the player
+     * When a treasure card is drawn, this method distributes the rubies to the players.
+     *
+     * @param card The treasure card that was drawn.
      */
-
     public void distributeRubies(TreasureCard card) {
         int rubyValue = card.getRubies();
         int remainder = rubyValue % activePlayers.size();
@@ -130,10 +153,12 @@ public class Game {
      */
     public boolean isCaveFinished(Card lastDrawnCard) {
         boolean exitByTrap = hasTwoSameTrapCards(lastDrawnCard, currentPath);
-        boolean roundHasEnded = exitByTrap || activePlayers.isEmpty();
+        boolean roundHasEnded = exitByTrap || activePlayers.isEmpty() || deck.isEmpty();
         if (roundHasEnded) {
             if (exitByTrap) {
                 System.out.println("Two identical hazard cards drawn" + lastDrawnCard.toString());
+            } else if (deck.isEmpty()) {
+                System.out.println("??? - Ending Cave : Deck is empty");
             }
             for (Player p : players) {
                 p.caveRubies = 0;
@@ -166,6 +191,36 @@ public class Game {
             }
         }
         return hasTwo;
+    }
+
+
+    /**
+     * When players decide to leave a cave, this method distributes the rubies to the players which were left in the path of Cave
+     *
+     * @param card The treasure card that was drawn.
+     */
+    public void distributeRubiesOnCaveExit(TreasureCard card, ArrayList<Player> playersToDistribute) {
+        int rubyValue = card.getRubies();
+        int remainder = rubyValue % playersToDistribute.size();
+
+        int rubiesToSplitEqually = rubyValue / playersToDistribute.size();
+        for (Player p : playersToDistribute) {
+            p.addToChest(rubiesToSplitEqually);
+        }
+        card.setRubies(remainder);
+    }
+
+    public String getStatusOfPlayers() {
+        Player winner = determineWinner();
+        StringBuilder result = new StringBuilder("===============RESULT================\n");
+        result.append("🏆Winner : ").append(winner);
+        result.append("\n");
+        result.append("All Players: \n");
+        for (Player p : players) {
+            result.append(p).append("\n");
+        }
+        result.append("=================2====================\n");
+        return result.toString();
     }
 
     public String toString() {

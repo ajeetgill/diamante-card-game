@@ -36,15 +36,10 @@ public class TreasureCard extends Card {
         return this.numRubies;
     }
 
-    public int setRubies(int remainderRubies) {
+    public void setRubies(int remainderRubies) {
         this.numRubies = remainderRubies;
-        return this.numRubies;
     }
 
-    // get the gemtype
-    public TREASURE_TYPE getGemType() {
-        return this.gemType;
-    }
 
     /**
      * This method returns the string representation of the treasure card.
