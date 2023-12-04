@@ -1,12 +1,12 @@
-import java.util.Objects;
-
 /**
  * This class represents a HazardCard in the Diamant board game.
  * It extends the Card class, inheriting its properties and adding a hazardType property.
  */
 public class HazardCard extends Card {
 
-    // ENUM of hazards in the game
+     /**
+     * Enum for the types of hazards in the game.
+     */
     public enum HAZARD_TYPES {
         SNAKE,
         SPIDER,
@@ -16,9 +16,9 @@ public class HazardCard extends Card {
     private HAZARD_TYPES hazardType;
 
     /**
-     * Constructor for the HazardCard class.
+     * Constructs a new HazardCard with the given hazard type.
      *
-     * @param hazardType The type of hazard this card represents.
+     * @param hazardType the type of hazard this card represents
      */
     public HazardCard(HAZARD_TYPES hazardType) {
         super(CardType.HAZARD);
@@ -34,6 +34,12 @@ public class HazardCard extends Card {
         return this.hazardType;
     }
 
+     /**
+     * Returns a string representation of the hazard card.
+     * The string contains an appropriate matching emoji for each hazard type.
+     *
+     * @return a string representation of the hazard card
+     */
     @Override
     public String toString() {
         // prints an appropriate matching emoji for each hazard type
@@ -46,6 +52,11 @@ public class HazardCard extends Card {
 
     }
 
+    /**
+     * Returns the type of the CARD - not same as hazard type.
+     *
+     * @return the type of the card
+     */
     @Override
     public CardType type() {
         return CardType.HAZARD;
