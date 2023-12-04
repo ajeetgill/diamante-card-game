@@ -13,6 +13,7 @@ public class Game {
 
     private Card currentCard;
     private Card cardDrawn;
+    final public static int TOTAL_CAVES = 5;
 
     /**
      * Constructor for the Game class.
@@ -29,7 +30,6 @@ public class Game {
      * This method starts the game and controls the game flow.
      */
     public void start() {
-        final int TOTAL_CAVES = 5;
         while (cave < TOTAL_CAVES) {
             this.activePlayers = new ArrayList<>(players);
             this.currentPath = new ArrayList<>();
@@ -111,21 +111,25 @@ public class Game {
     }
 
     /**
-     * This method determines the winner of the game.
-     * In case of a tie, the player who entered the cave first wins.
+     * This method determines the winner(s) of the game.
+     * The player with the highest score is declared the winner.
+     * In case of tie, the tied players share the victory
      *
-     * @return The player who won the game.
+     * @return An ArrayList<Player> of the winners of the game.
      */
-    private Player determineWinner() {
-        Player winner = null;
-        int max = 0;
+    private ArrayList<Player> determineWinner() {
+        ArrayList<Player> winners = new ArrayList<>();
+        int maxScore = 0;
         for (Player p : players) {
-            if (p.getChestValue() > max) {
-                max = p.getChestValue();
-                winner = p;
+            if (p.getChestValue() > maxScore) {
+                maxScore = p.getChestValue();
+                winners.clear();
+                winners.add(p);
+            } else if (p.getChestValue() == maxScore) {
+                winners.add(p);
             }
         }
-        return winner;
+        return winners;
     }
 
     /**
@@ -211,20 +215,26 @@ public class Game {
     }
 
     public String getStatusOfPlayers() {
-        Player winner = determineWinner();
-        StringBuilder result = new StringBuilder("===============RESULT================\n");
-        if (winner != null) {
-            result.append("Winner: ").append(winner.toString()).append("\n");
+        ArrayList<Player> winners = determineWinner();
+        StringBuilder result = new StringBuilder("\n===============RESULT================\n");
+        result.append("Player with Highest score is declared the winner.\n");
+        if (winners.size() == 1) {
+            result.append("🏆: ").append(winners.get(0).toString()).append("\n");
         } else {
-            result.append("😭No winner, all players had an EMPTY chest\n");
+            for (Player p : winners) {
+                result.append("🏆: ").append(p.toString()).append("\n");
+            }
+            result.append("In case of tie, the tied players share the victory\n");
+//            result.append("🏆🏆🏆\n🏆Winners: ").append(winners.toString()).append("\n");
         }
+
         result.append("\n");
         result.append("All Players: \n");
         for (Player p : players) {
             result.append(p).append("\n");
         }
         result.append("\n");
-        result.append("TIE BREAKER: whoever entered cave first wins\n");
+
         result.append("=================2====================\n");
         return result.toString();
     }
