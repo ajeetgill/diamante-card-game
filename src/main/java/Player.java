@@ -2,10 +2,10 @@ public class Player {
     final public String name;
     private String strategy;
     private int chestValue;
-    public int currentRoundRubies;
+    public int caveRubies;
 
     public Player(String name, String strategy) {
-        currentRoundRubies = 0;
+        caveRubies = 0;
         this.name = name;
         this.chestValue = 0;
         this.strategy = strategy;
@@ -23,15 +23,20 @@ public class Player {
     public void setStrategy(String strategy) {
         this.strategy = strategy;
     }
+
     void addToChest(int gemsInChest) {
         this.chestValue = gemsInChest;
     }
 
+    boolean wantsToLeave() {
+        return false;
+    }
+
     @Override
     public String toString() {
-        return "{"+ name + '\'' +
+        return "{" + name + '\'' +
                 ", [🏧:" + chestValue +
-                ", 💎:" + currentRoundRubies +
+                ", 💎:" + caveRubies +
                 "] , strategy=" + strategy +
                 '}';
 

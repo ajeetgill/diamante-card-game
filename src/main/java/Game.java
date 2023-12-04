@@ -6,20 +6,22 @@ import java.util.ArrayList;
 public class Game {
 
     final private ArrayList<Player> players;
-    private ArrayList<Player> activPlayers;
+    private ArrayList<Player> activePlayers;
     public ArrayList<Card> currentPath;
-    final private Deck deck;
-    private int round;
-    final private int TOTAL_ROUNDS = 1;
+    private Deck deck;
+    private int cave;
+
     private Card currentCard;
     private Card cardDrawn;
+
     /**
      * Constructor for the Game class.
+     *
      * @param players The list of players participating in the game.
      */
     public Game(ArrayList<Player> players) {
         this.players = players;
-        this.round = 0;
+        this.cave = 0;
         this.deck = new Deck();
     }
 
@@ -27,74 +29,76 @@ public class Game {
      * This method starts the game and controls the game flow.
      */
     public void start() {
-        while (round < TOTAL_ROUNDS) {
-            playRound();
-            round++;
+        final int TOTAL_CAVES = 1;
+        while (cave < TOTAL_CAVES) {
+            enterCave();
+            cave++;
         }
     }
 
     /**
-     * This method represents a round in the game.
+     * Logic for playing a round/cave
+     * 1. Draw a card
+     * 2. reveal drawnCard
+     * - if HAZARD : drawnCard
+     * -----> ❌endCave if: it's the second card of it's type in the current path
+     * -----> else : do nothing
+     * <p>
+     * - if TREASURE : drawnCard
+     * -----> distribute rubies
+     * <p>
+     * 3. Add drawnCard to currentPath
+     * 4. Ask players if they want to leave
+     * <p>
+     * This method represents a cave in the game.
      */
-    private void playRound() {
-        // Logic for playing a round
-        // 1. Draw a card from the deck
-        this.activPlayers = new ArrayList<Player>(players);
+    private void enterCave() {
+        this.activePlayers = new ArrayList<Player>(players);
         this.currentPath = new ArrayList<>();
+        this.deck = new Deck();
 
-        currentCard = deck.drawCard();
-        cardDrawn = deck.drawCard();
-        System.out.println("Drawn card: " + currentCard.toString());
-        if(currentCard.getCardType().equals(Card.CardType.TREASURE)) {
-            TreasureCard card = (TreasureCard) currentCard;
-            // get the ruby value of the card, and split it equally among the players and save the remainder in a variable
-            distributeRubies(card);
-            currentPath.add(card);
-        } else if(currentCard.getCardType().equals(Card.CardType.HAZARD)){
-            HazardCard card = (HazardCard) currentCard;
-            currentPath.add(card);
+        boolean isCaveClosed = false;
+        do {
+            currentCard = deck.drawCard();
+            if (currentCard instanceof TreasureCard tCard) {
+                cardDrawn = new TreasureCard(TreasureCard.TREASURE_TYPE.RUBY);
+                ((TreasureCard) cardDrawn).setRubies(tCard.getRubies());
+            } else {
+                cardDrawn = new HazardCard(HazardCard.HAZARD_TYPES.SNAKE);
+            }
+            //  System.out.println("Drawn card: " + currentCard.toString());
+            isCaveClosed = isCaveFinished(currentCard);
+            currentPath.add(currentCard);
+            if (isCaveClosed) {
+                System.out.println(cave + " :Cave is over");
+                return;
+            } else {
+                if (currentCard instanceof TreasureCard tCard) {
+                    distributeRubies(tCard);
+                }
+
+                kickPlayersWantingToLeave();
+                System.out.println(this.toString());
+            }
+        } while (!isCaveClosed);
+    }
+
+    /**
+     * This method kicks players who want to leave the game and removes them from the active players list.
+     */
+    private void kickPlayersWantingToLeave() {
+        ArrayList<Player> playersToRemove = new ArrayList<>();
+        for (Player player : activePlayers) {
+            if (player.wantsToLeave()) {
+                playersToRemove.add(player);
+            }
         }
-        // 2. After a card is drawn - ask each Player to decide to continue or exit
-        // whoevers exits, remove them from the active players list
-        // show that players has left the expedition
-        // working your way back to the camp, leaving-players collects the rubies on the way and split equally and the remainder is left in the cave
-
-
-        // 3. A round is over
-        // - all players exit
-        // - 2 Identical Hazard cards are drawn
-
-
-        // print current game status
-        System.out.println(this.toString());
-
-    }
-
-    public boolean kickFromRound(Player player) {
-        player.currentRoundRubies = 0;
-        activPlayers.remove(player);
-        return true;
-    }
-
-    /**
-     * This method represents a player's turn in the game.
-     * @param player The player whose turn it is.
-     */
-    private void playTurn(Player player) {
-        // Logic for playing a turn
-    }
-
-    /**
-     * This method checks if the game is over.
-     * @return True if the game is over, false otherwise.
-     */
-    private boolean isGameOver() {
-        // Logic for checking if the game is over
-        return false;
+        activePlayers.removeAll(playersToRemove);
     }
 
     /**
      * This method determines the winner of the game.
+     *
      * @return The player who won the game.
      */
     private Player determineWinner() {
@@ -105,65 +109,112 @@ public class Game {
     /**
      * change the gemsInChest of the player
      */
-    private void changeGemsInChest(Player player, int gems) {
-    }
 
     public void distributeRubies(TreasureCard card) {
         int rubyValue = card.getRubies();
-        int remainder = rubyValue % activPlayers.size();
+        int remainder = rubyValue % activePlayers.size();
 
-        int rubiesToSplitEqually = rubyValue / activPlayers.size();
-        for (Player p : activPlayers) {
-            p.currentRoundRubies += rubiesToSplitEqually;
+        int rubiesToSplitEqually = rubyValue / activePlayers.size();
+        for (Player p : activePlayers) {
+            p.caveRubies += rubiesToSplitEqually;
         }
         card.setRubies(remainder);
     }
 
+    /**
+     * (exit cave) : Function which finishes the round if requirements are met
+     * if round is finished - returns true
+     * else return false
+     *
+     * @return isFinished : boolean
+     */
+    public boolean isCaveFinished(Card lastDrawnCard) {
+        boolean exitByTrap = hasTwoSameTrapCards(lastDrawnCard, currentPath);
+        boolean roundHasEnded = exitByTrap || activePlayers.isEmpty();
+        if (roundHasEnded) {
+            if (exitByTrap) {
+                System.out.println("Two identical hazard cards drawn" + lastDrawnCard.toString());
+            }
+            for (Player p : players) {
+                p.caveRubies = 0;
+            }
+        }
+        return roundHasEnded;
+    }
+
+    /**
+     * Function which checks if the last drawn card is a trap card and if there are two of the same trap cards in the current path
+     *
+     * @param lastDrawnCard : Card representing the last drawn card
+     * @return hasTwo : boolean describing if there are two of the same trap cards in the current path
+     */
+    private boolean hasTwoSameTrapCards(Card lastDrawnCard, ArrayList<Card> pathToCheck) {
+        if (pathToCheck == null || pathToCheck.isEmpty()) return false;
+
+        System.out.println("lastDrawn is HazardCard: " + (lastDrawnCard instanceof HazardCard));
+        boolean hasTwo = false;
+        if (lastDrawnCard instanceof HazardCard lastCard) {
+
+            for (Card c : pathToCheck) {
+                if (c instanceof HazardCard h) {
+//                    HazardCard h = (HazardCard) c;
+                    if (h.getHazardType().equals(lastCard.getHazardType())) {
+                        hasTwo = true;
+                        break;
+                    }
+                }
+            }
+        }
+        return hasTwo;
+    }
+
     public String toString() {
-        String result = "================1=====================\n";
-        result += "GAME STATUS\n";
-        result += "Round: " + round + "\n";
-        result += "Active Players in round: \n";
-        for (Player player : activPlayers) {
-            result += player.toString() + "\n";
-        }
-        result += deck.toString();
-        result += "\n";
-
-        if(cardDrawn != null) {
-            result += "Drawn Card: " + cardDrawn.toString();
-            result += "\n";
-        }
-        if(currentCard != null) {
-            result += "Current Card: " + currentCard.toString();
-            result += "\n";
-        }
-        if(currentPath != null) {
-            result += "Current Path: " + currentPath.toString();
-            result += "\n";
+        StringBuilder result = new StringBuilder("================1=====================\n");
+        result.append("GAME STATUS\n");
+        result.append("Cave: #").append(cave).append("\n");
+//        result.append("Active players in Cave: \n");
+//        for (Player player : activePlayers) {
+//            result.append(player.toString()).append("\n");
+//        }
+        if (deck != null) {
+            result.append(deck.toString());
+            result.append("\n");
         }
 
-        result += "=================2====================\n";
-        return result;
+        if (cardDrawn != null) {
+            result.append("Drawn Card: ").append(cardDrawn.toString());
+            result.append("\n");
+        }
+        if (currentCard != null) {
+            result.append("Current Card: ").append(currentCard.toString());
+            result.append("\n");
+        }
+        if (currentPath != null) {
+            result.append("Current Path: ").append(currentPath.toString());
+            result.append("\n");
+        }
+
+        result.append("=================2====================\n");
+        return result.toString();
     }
 
 
 }
-/**
- * Components in the game:
+/*
+  Components in the game:
 
- * - Deck
- *      - TreasureCard
- *      - HazardCard / TrapCard
- *      - Relic Cards
- * - Board
- * - Decision cards - EXIT & CONTINUE
- *
- * - Player
- *     - Name
- *     - Strategy
- *     - GemsInChest
- *
- * - Rubies
- * - Barricade Tiles
+  - Deck
+       - TreasureCard
+       - HazardCard / TrapCard
+       - Relic Cards
+  - Board
+  - Decision cards - EXIT & CONTINUE
+
+  - Player
+      - Name
+      - Strategy
+      - GemsInChest
+
+  - Rubies
+  - Barricade Tiles
  */

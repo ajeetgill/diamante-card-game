@@ -8,8 +8,8 @@ import java.util.Stack;
  */
 public class Deck {
     private Stack<Card> cards;
-    final private int TOTAL_TREASURE_CARDS = 5;
-    final private int TOTAL_HAZARD_CARDS = 2;
+    final private int TOTAL_TREASURE_CARDS = 2;
+    final private int TOTAL_HAZARD_CARDS = 5;
 
     /**
      * Constructor for the Deck class.
@@ -22,21 +22,24 @@ public class Deck {
             cards.push(new TreasureCard(TreasureCard.TREASURE_TYPE.RUBY));
         }
         // Add hazard cards to the deck
-        //     for (int i = 0; i < TOTAL_HAZARD_CARDS; i++) {
-        //         // pick a random hazard card
-        //        int random = (int) (Math.random() * 3);
-        //        if (random == 0)
-        //            cards.push(new HazardCard(HazardCard.HAZARD_TYPES.SNAKE));
-        //        else if (random == 1)
-        //            cards.push(new HazardCard(HazardCard.HAZARD_TYPES.SPIDER));
-        //        else
-        //            cards.push(new HazardCard(HazardCard.HAZARD_TYPES.ROCKSLIDE));
-        //    }
+        for (int i = 0; i < TOTAL_HAZARD_CARDS; i++) {
+            cards.push(new HazardCard(HazardCard.HAZARD_TYPES.SNAKE));
+            // pick a random hazard card
+//            int random = (int) (Math.random() * 3);
+//            if (random == 0)
+//                cards.push(new HazardCard(HazardCard.HAZARD_TYPES.SNAKE));
+//            else if (random == 1)
+//                cards.push(new HazardCard(HazardCard.HAZARD_TYPES.SPIDER));
+//            else
+//                cards.push(new HazardCard(HazardCard.HAZARD_TYPES.ROCKSLIDE));
+        }
         // Shuffle the deck
         Collections.shuffle(cards);
     }
+
     /**
      * This method is used to draw a card from the deck.
+     *
      * @return Card drawn from the deck.
      */
     public Card drawCard() {
@@ -45,6 +48,7 @@ public class Deck {
 
     /**
      * This method is used to check if the deck is empty.
+     *
      * @return boolean value indicating if the deck is empty.
      */
     public boolean isEmpty() {
