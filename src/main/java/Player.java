@@ -1,30 +1,39 @@
 public class Player {
-    private String name;
-    private int score;
-    private Strategy strategy;
+    final public String name;
+    private String strategy;
+    private int chestValue;
+    public int currentRoundRubies;
 
-    public Player(String name, Strategy strategy) {
+    public Player(String name, String strategy) {
+        currentRoundRubies = 0;
         this.name = name;
-        this.score = 0;
+        this.chestValue = 0;
         this.strategy = strategy;
     }
 
-    public String getName() {
-        return name;
+    // return totals gems in chest
+    public int getChestValue() {
+        return chestValue;
     }
-    public int getScore() {
-        return score;
-    }
-    public Strategy getStrategy() {
+
+    public String getStrategy() {
         return strategy;
     }
-    public void setName(String name) {
-        this.name = name;
-    }
-    public void setScore(int score) {
-        this.score = score;
-    }
-    public void setStrategy(Strategy strategy) {
+
+    public void setStrategy(String strategy) {
         this.strategy = strategy;
+    }
+    void addToChest(int gemsInChest) {
+        this.chestValue = gemsInChest;
+    }
+
+    @Override
+    public String toString() {
+        return "{"+ name + '\'' +
+                ", [🏧:" + chestValue +
+                ", 💎:" + currentRoundRubies +
+                "] , strategy=" + strategy +
+                '}';
+
     }
 }

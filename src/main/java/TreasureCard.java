@@ -6,21 +6,15 @@ import java.util.Random;
  */
 public class TreasureCard extends Card {
 
-    public TreasureCard(int i) {
-    }
-
-    public int getTreasureValue();
-
     // two kind of treasure cards: RUBY and DIAMOND
     public enum TREASURE_TYPE {
-        RUBY,
-        DIAMOND
+        RUBY
     }
 
     public static final int RUBY_IN_DIAMOND = 5;
-    
-    private int numGems;
-    private TREASURE_TYPE gemType;
+
+    private int numRubies;
+    final private TREASURE_TYPE gemType;
 
     /**
      * Constructor for the TreasureCard class.
@@ -30,35 +24,33 @@ public class TreasureCard extends Card {
         super(CardType.TREASURE);
         this.gemType = gemType;
         Random rand = new Random();
-        this.numGems = rand.nextInt(15) + 1;
+        this.numRubies = rand.nextInt(15) + 1;
     }
 
     /**
      * This method returns the value of the treasure card.
      * @return int This returns the value of the treasure card.
      */
-    public int getTotalValue() {
-        if(this.gemType == TREASURE_TYPE.DIAMOND)
-            return this.numGems * RUBY_IN_DIAMOND;
-        else
-            return this.numGems;
+    public int getRubies() {
+        return this.numRubies;
+    }
+    public int setRubies(int remainderRubies) {
+        this.numRubies = remainderRubies;
+        return this.numRubies;
     }
 
     // get the gemtype
     public TREASURE_TYPE getGemType() {
         return this.gemType;
     }
-    
+
     /**
      * This method returns the string representation of the treasure card.
      * @return String This returns the string representation of the treasure card.
      */
     @Override
     public String toString() {
-        if (this.gemType == TREASURE_TYPE.DIAMOND)
-            return "[💎" + this.numGems + ']';
-        else
-            return "[🏮" + this.numGems + ']';
+        return "[🏮" + this.numRubies + ']';
     }
 
     @Override
