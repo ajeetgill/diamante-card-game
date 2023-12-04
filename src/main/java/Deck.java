@@ -7,11 +7,13 @@ import java.util.Stack;
  * It uses the Stack data structure from Java Collections Framework to simulate a deck of cards.
  */
 public class Deck {
-    private Stack<Card> cards;
-    final private int TOTAL_TREASURE_CARDS = 20;
+    final private Stack<Card> cards;
+    final static int TOTAL_TREASURE_CARDS = 20;
+    //    each iteration adds 2 snakes, 2 spiders, 2 rock slides, to maintain even number of hazard cards and maintain , so there's always a chance of a hazard-card-pair being drawn
+    final static private int TOTAL_HAZARD_CARD_ITERATION = 1;
+    final static int TOTAL_HAZARD_CARDS = TOTAL_HAZARD_CARD_ITERATION * 6;     // 6 is the number of hazard cards in each iteration
+    final static public int TOTAL_CARDS = TOTAL_TREASURE_CARDS + TOTAL_HAZARD_CARDS;
 
-    //    each iteration adds 2 snakes, 2 spiders, 2 rockslides, to maintain even number of hazard cards and maintain , so there's always a chance of a hazard-card-pair being drawn
-    final private int TOTAL_HAZARD_CARD_ITERATION = 1;
 
     /**
      * Constructor for the Deck class.
@@ -39,8 +41,9 @@ public class Deck {
 
     /**
      * This method is used to draw a card from the deck.
+     * It removes the card from the top of the deck and returns it.
      *
-     * @return Card drawn from the deck.
+     * @return Card the card drawn from the deck
      */
     public Card drawCard() {
         return cards.pop();
@@ -61,10 +64,12 @@ public class Deck {
                 "CARDS :" + cards;
     }
 
-    public void initializeDeck() {
+    public int size() {
+        int size = 0;
+        for (Card c : cards) {
+            size++;
+        }
+        return size;
     }
 
-    public int size() {
-        return 0;
-    }
 }

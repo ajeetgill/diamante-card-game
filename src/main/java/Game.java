@@ -31,7 +31,7 @@ public class Game {
     public void start() {
         final int TOTAL_CAVES = 5;
         while (cave < TOTAL_CAVES) {
-            this.activePlayers = new ArrayList<Player>(players);
+            this.activePlayers = new ArrayList<>(players);
             this.currentPath = new ArrayList<>();
             this.deck = new Deck();
             System.out.println("Starting Deck: " + deck);
@@ -63,7 +63,7 @@ public class Game {
             if (currentCard instanceof TreasureCard tCard) {
                 cardDrawn = new TreasureCard(TreasureCard.TREASURE_TYPE.RUBY);
                 ((TreasureCard) cardDrawn).setRubies(tCard.getRubies());
-            } else if(currentCard instanceof HazardCard hCard){
+            } else if (currentCard instanceof HazardCard hCard) {
                 cardDrawn = new HazardCard(hCard.getHazardType());
             }
             //  System.out.println("Drawn card: " + currentCard.toString());
@@ -223,6 +223,8 @@ public class Game {
         for (Player p : players) {
             result.append(p).append("\n");
         }
+        result.append("\n");
+        result.append("TIE BREAKER: whoever entered cave first wins\n");
         result.append("=================2====================\n");
         return result.toString();
     }
