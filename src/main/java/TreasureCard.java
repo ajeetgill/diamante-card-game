@@ -29,11 +29,13 @@ public class TreasureCard extends Card {
 
     /**
      * This method returns the value of the treasure card.
+     *
      * @return int This returns the value of the treasure card.
      */
     public int getRubies() {
         return this.numRubies;
     }
+
     public int setRubies(int remainderRubies) {
         this.numRubies = remainderRubies;
         return this.numRubies;
@@ -46,6 +48,7 @@ public class TreasureCard extends Card {
 
     /**
      * This method returns the string representation of the treasure card.
+     *
      * @return String This returns the string representation of the treasure card.
      */
     @Override
@@ -54,7 +57,7 @@ public class TreasureCard extends Card {
     }
 
     @Override
-    public CardType getCardType() {
+    public CardType type() {
         return Card.CardType.TREASURE;
     }
 }

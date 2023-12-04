@@ -30,35 +30,24 @@ public class HazardCard extends Card {
      *
      * @return The hazard type.
      */
-    public String getHazardType() {
-        return this.hazardType.toString();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof HazardCard)) return false;
-        HazardCard that = (HazardCard) o;
-        return Objects.equals(hazardType, that.hazardType);
+    public HAZARD_TYPES getHazardType() {
+        return this.hazardType;
     }
 
     @Override
     public String toString() {
         // prints an appropriate matching emoji for each hazard type
-        switch (this.hazardType) {
-            case SNAKE:
-                return "[\uD83D\uDC0D]";
-            case SPIDER:
-                return "[\uD83D\uDC1B]";
-            case ROCKSLIDE:
-                return "[\uD83D\uDEA8]";
-            default:
-                return "❌";
-        }
+        return switch (this.hazardType) {
+            case SNAKE -> "[\uD83D\uDC0D]";
+            case SPIDER -> "[\uD83D\uDC1B]";
+            case ROCKSLIDE -> "[\uD83D\uDEA8]";
+            default -> "❌";
+        };
 
     }
 
-    public CardType getCardType() {
+    @Override
+    public CardType type() {
         return CardType.HAZARD;
     }
 

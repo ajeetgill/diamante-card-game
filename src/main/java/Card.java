@@ -8,20 +8,23 @@ public abstract class Card {
         TREASURE,
         HAZARD
     }
+
     // The value of the card
     protected CardType type;
     protected int value;
 
     public Card(CardType type) {
-        this.value =0;
+        this.value = 0;
         this.type = type;
     }
 
     /**
      * This method returns the value of the card.
+     *
      * @return The value of the card.
      */
-    public abstract CardType getCardType();
+    public abstract CardType type();
+
     public abstract String toString();
 
 }
