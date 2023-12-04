@@ -6,15 +6,28 @@ import java.util.Random;
  */
 public class TreasureCard extends Card {
 
-    // two kind of treasure cards: RUBY and DIAMOND
+    /**
+     * Enum for the types of GEMS/Treasure in the game.
+     * Currently only RUBY is supported.
+     * More gems can be added in the future. like Diamond Or more others to make the game more interesting.
+     */
     public enum TREASURE_TYPE {
         RUBY
     }
 
-    public static final int RUBY_IN_DIAMOND = 5;
-
     private int numRubies;
     final private TREASURE_TYPE gemType;
+
+    /**
+     * Default Constructor with GemType RUBY
+     * It randomly assigns a value to the treasure card.
+     */
+    public TreasureCard() {
+        super(CardType.TREASURE);
+        this.gemType = TREASURE_TYPE.RUBY;
+        Random rand = new Random();
+        this.numRubies = rand.nextInt(15) + 1;
+    }
 
     /**
      * Constructor for the TreasureCard class.
@@ -36,6 +49,11 @@ public class TreasureCard extends Card {
         return this.numRubies;
     }
 
+    /**
+     * This method sets the value of the treasure card.
+     *
+     * @param remainderRubies the new value of the treasure card
+     */
     public void setRubies(int remainderRubies) {
         this.numRubies = remainderRubies;
     }
