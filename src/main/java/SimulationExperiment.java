@@ -8,9 +8,11 @@ public class SimulationExperiment {
         Player player1 = new Player("Player__1", new AggressiveStrategy());
         Player player2 = new Player("Player__2", new ConservativeStrategy());
         Player player3 = new Player("Player__3", new LetLuckDecideStrategy());
+        Player player4 = new Player("Player__4", new CautiousStrategy());
         players.add(player1);
         players.add(player2);
         players.add(player3);
+        players.add(player4);
 
         // Create a new game with the players
         Game game = new Game(players);
