@@ -8,6 +8,8 @@ import java.util.Stack;
  */
 public class Deck {
     private Stack<Card> cards;
+    final private int TOTAL_TREASURE_CARDS = 5;
+    final private int TOTAL_HAZARD_CARDS = 2;
 
     /**
      * Constructor for the Deck class.
@@ -16,15 +18,20 @@ public class Deck {
     public Deck() {
         cards = new Stack<>();
         // Add treasure cards to the deck
-        for (int i = 0; i < 15; i++) {
+        for (int i = 0; i < TOTAL_TREASURE_CARDS; i++) {
             cards.push(new TreasureCard(TreasureCard.TREASURE_TYPE.RUBY));
         }
         // Add hazard cards to the deck
-        for (int i = 0; i < 5; i++) {
-            cards.push(new HazardCard(HazardCard.HAZARD_TYPES.SNAKE));
-            cards.push(new HazardCard(HazardCard.HAZARD_TYPES.SPIDER));
-            cards.push(new HazardCard(HazardCard.HAZARD_TYPES.ROCKSLIDE));
-       }
+        //     for (int i = 0; i < TOTAL_HAZARD_CARDS; i++) {
+        //         // pick a random hazard card
+        //        int random = (int) (Math.random() * 3);
+        //        if (random == 0)
+        //            cards.push(new HazardCard(HazardCard.HAZARD_TYPES.SNAKE));
+        //        else if (random == 1)
+        //            cards.push(new HazardCard(HazardCard.HAZARD_TYPES.SPIDER));
+        //        else
+        //            cards.push(new HazardCard(HazardCard.HAZARD_TYPES.ROCKSLIDE));
+        //    }
         // Shuffle the deck
         Collections.shuffle(cards);
     }
@@ -46,7 +53,7 @@ public class Deck {
 
 
     public String toString() {
-        return "Deck{" +
+        return "{" +
                 "cards=" + cards +
                 '}';
     }
